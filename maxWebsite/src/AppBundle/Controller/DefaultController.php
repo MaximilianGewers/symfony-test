@@ -8,7 +8,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use AppBundle\Entity\Projectx;
+
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+
+use AppBundle\Entity\Person;
+use AppBundle\Entity\User;
+use AppBundle\Form\PersonType;
 
 class DefaultController extends Controller
 {
@@ -90,7 +95,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("projects/{slug}", name=" ")
+     * @Route("projects/{slug}", name="projectEdit")
      */
     public function EditProjectController($slug)
     {
@@ -103,4 +108,95 @@ class DefaultController extends Controller
             "list" => $projects
             ]);
     }
+
+    /**
+     * @Route("admin/allUsers", name="ListAllUsers")
+     */
+    public function AdminAllUsers(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $users = $em->getRepository('AppBundle:User')->findAll();
+
+        dump($users);
+
+        return $this->render('default/admin.allUsers.html.twig', array(
+            "users" => $users,
+        ));
+    }
+
+    /**
+     * @Route("admin/allUsers/edit/{slug}", name="EditUser")
+     */
+    public function AdminEditUser(Request $request, $slug)
+    {
+        #Loading Single person on page
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('AppBundle:User')->findOneBy(array('id' => $slug));
+        dump($user);
+
+        #get the person
+        $userPerson = $user->getPerson();
+        #IF person has a name
+        $personNameField = "";
+        if (!is_null($userPerson))
+        {
+        	$personNameField = $userPerson->getName();
+        }
+
+
+        #creating a form for person
+        $form = $this->createFormBuilder()
+        ->add("userName", TextType::class, [
+        "data" => $user->getUserName()
+        ])
+        ->add("Name", TextType::class, [
+        "data" => $personNameField
+        ])
+        ->add("Submit", SubmitType::class, [
+        "label" => "Submit now",
+        "attr" => [
+            "class" => "btn btn-success"
+            ]
+        ])
+        ->getForm();
+
+        #Handle Request
+        $form->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $data = $form->getData();
+            $user->setUserName($data['userName']);
+
+            #if person has a name
+            if (!is_null($userPerson))
+            {
+                $userPerson->setName($data['Name']);
+                $em->persist($userPerson);
+                $em->flush();
+            }
+            else #person does not exist yet
+            {
+                $newPerson = new Person();
+                $newPerson->setName($data['Name']);
+                $user->setPerson($newPerson);
+                $em->persist($newPerson);
+                $em->flush();
+            }
+
+
+            $em->persist($user);
+            $em->flush();
+
+            return $this->redirectToRoute("ListAllUsers");
+        }
+
+        #how to deal and load person???
+
+        return $this->render('default/admin.allUsers.edit.html.twig', array(
+            "form" => $form->createView(),
+        ));
+    }
+
 }

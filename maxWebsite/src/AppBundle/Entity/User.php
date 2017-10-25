@@ -3,8 +3,10 @@
 
 namespace AppBundle\Entity;
 
-use FOS\UserBundle\Model\User as BaseUser;
+use AppBundle\Entity\Person;
 use Doctrine\ORM\Mapping as ORM;
+use FOS\UserBundle\Model\User as BaseUser;
+
 
 /**
  * @ORM\Entity
@@ -20,26 +22,26 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\OneToOne(targetEntity="Person")
+     * @ORM\JoinColumn(name="Person_id", referencedColumnName="id")
      */
-    protected $name;
+    protected $person;
 
     public function __construct()
     {
         parent::__construct();
-        // your own logic
     }
 
-    public function getName()
+    public function setPerson($person)
     {
-        return $this->name;
+        $this->person = $person;
     }
 
-
-    public function setName($name)
+    public function getPerson()
     {
-    	$this->name = $name;
+        return $this->person;
     }
+
 
 
 }

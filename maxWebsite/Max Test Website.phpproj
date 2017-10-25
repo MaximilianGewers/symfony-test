@@ -1,4 +1,4 @@
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Name>Max Test Website</Name>
@@ -32,12 +32,15 @@
     <Compile Include="app\AppKernel.php" />
     <Compile Include="bin\console" />
     <Compile Include="bin\symfony_requirements" />
-    <Compile Include="src\AppBundle\Controller\DefaultController.php" />
     <Compile Include="src\AppBundle\AppBundle.php" />
+    <Compile Include="src\AppBundle\Controller\DefaultController.php" />
     <Compile Include="src\.htaccess" />
     <Compile Include="src\AppBundle\Entity\Projectx.php" />
+    <Compile Include="src\AppBundle\Entity\Person.php" />
     <Compile Include="src\AppBundle\Entity\User.php" />
+    <Compile Include="src\AppBundle\Form\PersonType.php" />
     <Compile Include="tests\AppBundle\Controller\DefaultControllerTest.php" />
+    <Compile Include="tests\test.php" />
     <Compile Include="var\cache\dev\annotations.map" />
     <Compile Include="var\cache\dev\appDevDebugProjectContainer.php" />
     <Compile Include="var\cache\dev\appDevDebugProjectContainer.php.meta" />
@@ -76,6 +79,7 @@
     <Folder Include="src\AppBundle" />
     <Folder Include="src" />
     <Folder Include="src\AppBundle\Entity\" />
+    <Folder Include="src\AppBundle\Form\" />
     <Folder Include="tests\AppBundle\Controller" />
     <Folder Include="tests\AppBundle" />
     <Folder Include="tests" />
@@ -94,9 +98,11 @@
     <Folder Include="web" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\Resources\views\default\admin.allUsers.edit.html.twig" />
     <Content Include="app\Resources\views\default\listOne.html.twig" />
     <Content Include="app\Resources\views\default\list.html.twig" />
     <Content Include="app\Resources\views\default\form.html.twig" />
+    <Content Include="app\Resources\views\default\admin.allUsers.html.twig" />
     <Content Include="app\Resources\views\default\test.html.twig" />
   </ItemGroup>
 </Project>
