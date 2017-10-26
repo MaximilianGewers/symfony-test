@@ -3,27 +3,31 @@
 {% block body %}
 <h1>This is the all user page</h1>
 <h2>List of Users</h2>
+{# Checks to see if a Flash message was send #}
 {% for message in app.flashes('notice') %}
-    <div class="alert alert-success">
-        {{ message }}
-    </div>
+<div class="alert alert-success">
+    {{ message }}
+</div>
 {% endfor %}
+{# END FLASH MESSAGE #}
 <ul class="list-group">
-{% for user in users %}
+    {# Displays User Object info #}
+    {% for user in users %}
     <li class="list-group-item">
-        Username : {{ user.username }} <br/>
+        Username : {{ user.username }} <br />
+        {# Checks if the person object exist. #}
         {% if user.Person is null %}
         <div class="alert alert-warning">
             No Personal data set.
         </div>
         {% else %}
-        Name : {{user.Person.name}} <br/>
-        Description: {{user.Person.description}} <br/>
-        Notes: {{user.Person.notes}} <br/>
+        Name : {{user.Person.name}} <br />
+        Description: {{user.Person.description}} <br />
+        Notes: {{user.Person.notes}} <br />
         {% endif %}
         <a href="{{ path("EditUser", { "slug":user.id }) }}" class="btn btn-primary">Edit this item</a>
     </li>
-{% endfor %}
+    {% endfor %}
 </ul>
 
 {% endblock %}
