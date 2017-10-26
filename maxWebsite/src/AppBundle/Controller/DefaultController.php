@@ -137,11 +137,26 @@ class DefaultController extends Controller
 
         #get the person
         $userPerson = $user->getPerson();
-        #IF person has a name
+        #Default values for text fields
         $personNameField = "";
+        $personDescField = "";
+        $personNotesField = "";
+        #IF User has a person object attached to it
         if (!is_null($userPerson))
         {
-        	$personNameField = $userPerson->getName();
+            #if the person object has data in it set the default text fields.
+            if (!is_null($userPerson->getName()))
+            {
+            	$personNameField = $userPerson->getName();
+            }
+            if (!is_null($userPerson->getDescription()))
+            {
+            	$personDescField = $userPerson->getDescription();
+            }
+            if (!is_null($userPerson->getNotes()))
+            {
+            	$personNotesField = $userPerson->getNotes();
+            }
         }
 
 
@@ -152,6 +167,12 @@ class DefaultController extends Controller
         ])
         ->add("Name", TextType::class, [
         "data" => $personNameField
+        ])
+        ->add("Desc", TextareaType::class, [
+        "data" => $personDescField
+        ])
+        ->add("Notes", TextareaType::class, [
+        "data" => $personNotesField
         ])
         ->add("Submit", SubmitType::class, [
         "label" => "Submit now",
@@ -164,8 +185,11 @@ class DefaultController extends Controller
         #Handle Request
         $form->handleRequest($request);
         $em = $this->getDoctrine()->getManager();
+        #holds of the request was successfull
+
         if($form->isSubmitted() && $form->isValid())
         {
+            #assuming that the user MUST have a username - otherwise we would not be on this page
             $data = $form->getData();
             $user->setUserName($data['userName']);
 
@@ -173,13 +197,18 @@ class DefaultController extends Controller
             if (!is_null($userPerson))
             {
                 $userPerson->setName($data['Name']);
+                $userPerson->setDescription($data['Desc']);
+                $userPerson->setNotes($data['Notes']);
                 $em->persist($userPerson);
                 $em->flush();
             }
             else #person does not exist yet
             {
+                #so set all of the data to default data. could be set to null
                 $newPerson = new Person();
                 $newPerson->setName($data['Name']);
+                $newPerson->setDescription($data['Desc']);
+                $newPerson->setNotes($data['Notes']);
                 $user->setPerson($newPerson);
                 $em->persist($newPerson);
                 $em->flush();
@@ -188,6 +217,8 @@ class DefaultController extends Controller
 
             $em->persist($user);
             $em->flush();
+
+            $this->addFlash('notice','Person Successfully updated!');
 
             return $this->redirectToRoute("ListAllUsers");
         }
