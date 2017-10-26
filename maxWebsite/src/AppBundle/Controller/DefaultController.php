@@ -218,6 +218,7 @@ class DefaultController extends Controller
             $em->persist($user);
             $em->flush();
 
+            #If the user was successfully saved sends a flash message object to the next page
             $this->addFlash('notice','Person Successfully updated!');
 
             return $this->redirectToRoute("ListAllUsers");
