@@ -224,8 +224,6 @@ class DefaultController extends Controller
             return $this->redirectToRoute("ListAllUsers");
         }
 
-        #how to deal and load person???
-
         return $this->render('default/admin.allUsers.edit.html.twig', array(
             "form" => $form->createView(),
         ));
