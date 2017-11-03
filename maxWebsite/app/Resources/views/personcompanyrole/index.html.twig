@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Personcompanyroles list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Rolename</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for personCompanyRole in personCompanyRoles %}
+            <tr>
+                <td><a href="{{ path('personcompanyrole_show', { 'id': personCompanyRole.id }) }}">{{ personCompanyRole.id }}</a></td>
+                <td>{{ personCompanyRole.roleName }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('personcompanyrole_show', { 'id': personCompanyRole.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('personcompanyrole_edit', { 'id': personCompanyRole.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('personcompanyrole_new') }}">Create a new personCompanyRole</a>
+        </li>
+    </ul>
+{% endblock %}

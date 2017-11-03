@@ -5,10 +5,10 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * PersonCompanyRole
+ * PersonCompanyRoleJoin
  *
- * @ORM\Table(name="person_company_role")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\PersonCompanyRoleRepository")
+ * @ORM\Table(name="person_company_role_join")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\PersonCompanyRoleJoinRepository")
  */
 class PersonCompanyRoleJoin
 {
@@ -22,23 +22,21 @@ class PersonCompanyRoleJoin
     private $id;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="person", type="integer")
-     */
-    private $person;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="company", type="integer")
+     * @ORM\ManyToOne(targetEntity="Company", inversedBy="company")
+     * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
      */
     private $company;
 
     /**
-     * @var int
+     * @ORM\ManyToOne(targetEntity="Person", inversedBy="person")
+     * @ORM\JoinColumn(name="person_id", referencedColumnName="id")
+     */
+    private $person;
+
+    /**
+     * @var string
      *
-     * @ORM\Column(name="role", type="integer")
+     * @ORM\Column(name="role", type="string", length=255)
      */
     private $role;
 
@@ -54,47 +52,23 @@ class PersonCompanyRoleJoin
     }
 
     /**
-     * Set person
-     *
-     * @param integer $person
-     *
-     * @return PersonCompanyRole
-     */
-    public function setPerson($person)
-    {
-        $this->person = $person;
-    
-        return $this;
-    }
-
-    /**
-     * Get person
-     *
-     * @return integer
-     */
-    public function getPerson()
-    {
-        return $this->person;
-    }
-
-    /**
      * Set company
      *
-     * @param integer $company
+     * @param string $company
      *
-     * @return PersonCompanyRole
+     * @return PersonCompanyRoleJoin
      */
     public function setCompany($company)
     {
         $this->company = $company;
-    
+
         return $this;
     }
 
     /**
      * Get company
      *
-     * @return integer
+     * @return string
      */
     public function getCompany()
     {
@@ -102,23 +76,47 @@ class PersonCompanyRoleJoin
     }
 
     /**
+     * Set person
+     *
+     * @param string $person
+     *
+     * @return PersonCompanyRoleJoin
+     */
+    public function setPerson($person)
+    {
+        $this->person = $person;
+
+        return $this;
+    }
+
+    /**
+     * Get person
+     *
+     * @return string
+     */
+    public function getPerson()
+    {
+        return $this->person;
+    }
+
+    /**
      * Set role
      *
-     * @param integer $role
+     * @param string $role
      *
-     * @return PersonCompanyRole
+     * @return PersonCompanyRoleJoin
      */
     public function setRole($role)
     {
         $this->role = $role;
-    
+
         return $this;
     }
 
     /**
      * Get role
      *
-     * @return integer
+     * @return string
      */
     public function getRole()
     {

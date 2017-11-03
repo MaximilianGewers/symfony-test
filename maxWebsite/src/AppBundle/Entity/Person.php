@@ -33,6 +33,11 @@ class Person
      */
     protected $notes;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Company", mappedBy="company")
+     */
+    private $company;
+
     public function setName($name)
     {
         $this->name = $name;
@@ -62,4 +67,20 @@ class Person
     {
         return $this->notes;
     }
+
+    public function setCompany($company)
+    {
+        $this->company = $company;
+    }
+
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
+    
 }
