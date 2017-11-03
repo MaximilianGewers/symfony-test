@@ -74,6 +74,22 @@ class PersonCompanyRoleJoinController extends Controller
     }
 
     /**
+     * Finds and displays a personCompanyRoleJoin entity.
+     *
+     * @Route("/all/{id}", name="personcompanyrolejoin_showAll")
+     * @Method("GET")
+     */
+    public function showActionAllInfo(PersonCompanyRoleJoin $personCompanyRoleJoin)
+    {
+        $deleteForm = $this->createDeleteForm($personCompanyRoleJoin);
+
+        return $this->render('personcompanyrolejoin/show.html.twig', array(
+            'personCompanyRoleJoin' => $personCompanyRoleJoin,
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
+    /**
      * Displays a form to edit an existing personCompanyRoleJoin entity.
      *
      * @Route("/{id}/edit", name="personcompanyrolejoin_edit")
