@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Kales list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Birthdate</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for kale in kales %}
+            <tr>
+                <td><a href="{{ path('kale_show', { 'id': kale.id }) }}">{{ kale.id }}</a></td>
+                <td>{{ kale.name }}</td>
+                <td>{% if kale.birthdate %}{{ kale.birthdate|date('Y-m-d') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('kale_show', { 'id': kale.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('kale_edit', { 'id': kale.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('kale_new') }}">Create a new kale</a>
+        </li>
+    </ul>
+{% endblock %}

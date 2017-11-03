@@ -2,5 +2,8 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectView>ShowAllFiles</ProjectView>
+    <RuntimePath>D:\PHP\v7.0\php.exe</RuntimePath>
+    <StartAction>StartUrl</StartAction>
+    <StartUrlValue>http://localhost</StartUrlValue>
   </PropertyGroup>
 </Project>
