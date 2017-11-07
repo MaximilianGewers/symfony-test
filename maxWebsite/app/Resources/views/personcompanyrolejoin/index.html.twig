@@ -1,39 +1,41 @@
 {% extends 'base.html.twig' %}
-
 {% block body %}
-    <h1>Personcompanyrolejoins list</h1>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Role</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
+<h1>Personcompanyrolejoins list</h1>
+<p>Click <a href="{{ path('personcompanyrolejoin_person') }}">Here</a> to search for a person</p>
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Person</th>
+            <th>Company</th>
+            <th>Role</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
         {% for personCompanyRoleJoin in personCompanyRoleJoins %}
-            <tr>
-                <td><a href="{{ path('personcompanyrolejoin_show', { 'id': personCompanyRoleJoin.id }) }}">{{ personCompanyRoleJoin.id }}</a></td>
-                <td>{{ personCompanyRoleJoin.role }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('personcompanyrolejoin_show', { 'id': personCompanyRoleJoin.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('personcompanyrolejoin_edit', { 'id': personCompanyRoleJoin.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
+        <tr>
+            <td><a href="{{ path('personcompanyrolejoin_show', { 'id': personCompanyRoleJoin.id }) }}">{{ personCompanyRoleJoin.id }}</a></td>
+            <td><a href="{{ path('EditUser', { 'slug': personCompanyRoleJoin.person.id }) }}">{{ personCompanyRoleJoin.person }}</a></td>
+            <td>{{ personCompanyRoleJoin.company }}</td>
+            <td>{{ personCompanyRoleJoin.role }}</td>
+            <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('personcompanyrolejoin_show', { 'id': personCompanyRoleJoin.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('personcompanyrolejoin_edit', { 'id': personCompanyRoleJoin.id }) }}">edit</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
         {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('personcompanyrolejoin_new') }}">Create a new personCompanyRoleJoin</a>
-        </li>
-    </ul>
+    </tbody>
+</table>
+<ul>
+    <li>
+        <a href="{{ path('personcompanyrolejoin_new') }}">Create a new personCompanyRoleJoin</a>
+    </li>
+</ul>
 {% endblock %}

@@ -16,7 +16,7 @@ class Person
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $id;
+    public $id;
 
     /**
      * @ORM\Column(type="string", nullable=true)
@@ -37,6 +37,11 @@ class Person
      * @ORM\OneToMany(targetEntity="Company", mappedBy="company")
      */
     private $company;
+
+    public function getId()
+    {
+        $this->id;
+    }
 
     public function setName($name)
     {
@@ -82,5 +87,5 @@ class Person
     {
         return $this->getName();
     }
-    
+
 }

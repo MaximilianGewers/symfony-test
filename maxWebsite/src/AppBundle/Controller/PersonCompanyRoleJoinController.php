@@ -25,11 +25,53 @@ class PersonCompanyRoleJoinController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $personCompanyRoleJoins = $em->getRepository('AppBundle:PersonCompanyRoleJoin')->findAll();
-
+        dump($personCompanyRoleJoins);
         return $this->render('personcompanyrolejoin/index.html.twig', array(
             'personCompanyRoleJoins' => $personCompanyRoleJoins,
         ));
     }
+
+    /**
+     * Lists all personCompanyRoleJoin entities.
+     *
+     * @Route("/person", name="personcompanyrolejoin_person")
+     * @Method("GET")
+     */
+    public function PersonAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        //$personCompanyRoleJoins = $em->getRepository('AppBundle:PersonCompanyRoleJoin')->findAll();
+        //TEST
+        $persons = $em->getRepository('AppBundle:Person')->findAll();
+        //TEST END
+        dump($persons);
+        return $this->render('personcompanyrolejoin/person.html.twig', array(
+            'persons' => $persons,
+        ));
+    }
+
+    /**
+     * Lists all personCompanyRoleJoin entities.
+     *
+     * @Route("/person/{id}", name="personcompanyrolejoin_personlookup")
+     * @Method("GET")
+     */
+    public function PersonLookupAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        //$personCompanyRoleJoins = $em->getRepository('AppBundle:PersonCompanyRoleJoin')->findAll();
+        //TEST
+        $personCompanyRoleJoins = $em->getRepository('AppBundle:PersonCompanyRoleJoin')
+        ->findByPerson($id);
+        //TEST END
+        dump($personCompanyRoleJoins);
+        return $this->render('personcompanyrolejoin/index.html.twig', array(
+            'personCompanyRoleJoins' => $personCompanyRoleJoins,
+        ));
+    }
+
 
     /**
      * Creates a new personCompanyRoleJoin entity.

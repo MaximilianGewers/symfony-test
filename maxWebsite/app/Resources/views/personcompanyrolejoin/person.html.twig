@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<h1>Personcompanyrolejoins list</h1>
+<p>Click <a href="{{ path('personcompanyrolejoin_person') }}">Here</a> to search for a person</p>
+    {% for person in persons %}
+        <a href="{{ path('personcompanyrolejoin_personlookup', {'id' : person.id}) }}">{{person.name}}</a><br/>
+    {% endfor %}
+{% endblock %}
