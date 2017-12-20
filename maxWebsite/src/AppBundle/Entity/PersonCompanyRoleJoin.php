@@ -22,13 +22,13 @@ class PersonCompanyRoleJoin
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Company", inversedBy="company")
+     * @ORM\ManyToOne(targetEntity="Company", inversedBy="person")
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
      */
     private $company;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Person", inversedBy="person")
+     * @ORM\ManyToOne(targetEntity="Person", inversedBy="company")
      * @ORM\JoinColumn(name="person_id", referencedColumnName="id")
      */
     private $person;

@@ -34,7 +34,7 @@ class Person
     protected $notes;
 
     /**
-     * @ORM\OneToMany(targetEntity="Company", mappedBy="company")
+     * @ORM\OneToMany(targetEntity="PersonCompanyRoleJoin", mappedBy="person")
      */
     private $company;
 

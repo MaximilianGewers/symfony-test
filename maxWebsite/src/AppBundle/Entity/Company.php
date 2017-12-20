@@ -78,7 +78,7 @@ class Company
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="Person", mappedBy="person")
+     * @ORM\OneToMany(targetEntity="PersonCompanyRoleJoin", mappedBy="company")
      */
     private $person;
 
@@ -312,6 +312,6 @@ class Company
     {
         return $this->getCompanyName();
     }
-    
+
 }
 

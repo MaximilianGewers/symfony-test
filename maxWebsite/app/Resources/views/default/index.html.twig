@@ -2,7 +2,11 @@
 
 {% block body %}
     <h1>Hello world!</h1>
-    <a href=" {{ path('personcompanyrole_index') }} ">Person Company Role</a>
+    <a href=" {{ path('personcompanyrolejoin_index') }} ">Person Company Role</a>
+    <h3>Here i am going to list all people in a company</h3>
+    {% for person in people %}
+        <p>name: {{ person.person.name }} has the role of {{ person.role }}</p>
+    {% endfor %}
 {% endblock %}
 
 {% block stylesheets %}
